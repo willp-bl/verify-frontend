@@ -1,0 +1,2 @@
+# docker build -t verify-frontend:v7 .
+# docker run -d -p 50300:50300 verify-frontend:v7
