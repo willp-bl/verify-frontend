@@ -1,0 +1,14 @@
+version: '3'
+services:
+  frontend:
+    build: .
+    ports:
+      - '50300:50300'
+    environment:
+      IDA_FRONTEND_HOST: 'http://api:50199'
+      CONFIG_API_HOST: 'http://api:50199'
+      POLICY_HOST: 'http://api:50199'
+      SAML_PROXY_HOST: 'http://api:50199'
+  api:
+    image: 'verify-stub-api'
+
