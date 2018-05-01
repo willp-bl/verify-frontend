@@ -3,17 +3,34 @@
 <div class="article-container column-two-thirds">
   <h1 class="heading-large"><%= t('hub.choose_country.heading') %></h1>
 
-  <%= form_tag choose_a_country_submit_path do %>
-      <select name="country" id="country-picker" class="form-control-2-3 form-control">
-        <option value=""></option>
-        <% @countries.each do |country| %>
-        <option value="<%= country.simple_id %>"><%= country.display_name %></option>
-        <% end %>
-      </select>
-      <%= submit_tag "Select", class: "button"%>
+  <%= form_for(country, url: choose_a_country_submit_path, html: {class: 'idp-option js-idp-form', id: "country-picker", name: "country"}) do |f| %>
+    <% @countries.each_with_index do |country, idx| %>
+      <div class="column-one-third company-wrapper <%= idx % 3 == 0 ? 'clear-left' : nil %>">
+        <div class="company">
+          <div class="company-inner">
+            <div class="company-logo">
+              <div class="company-logo-inner">
+                <!-- no images yet so use simple_id -->
+                <%= image_submit_tag(country.simple_id, alt: country.display_name) %>
+              </div>
+            </div>
+            <% button_text = 'hub.signin.sign_in_idp' %>
+            <%= f.button t(button_text, display_name: country.display_name),
+                         class: 'button',
+                         name: country.simple_id,
+                         id: nil,
+                         type: 'submit',
+                         value: country.simple_id
+            %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
+
   <div id="no-country" style="display: <%= flash[:errors] ? 'block' : 'none' %>;">
     <h2 class="heading-medium">Please select a country from the list</h2>
     <p><a href="javascript:history.back()">Try another way to sign in.</a></p>
   </div>
+
 </div>
