@@ -11,6 +11,28 @@ describe ConfirmationLoa1Controller do
       session[:selected_idp] = { 'entity_id' => 'http://idcorp.com', 'simple_id' => 'stub-idp-one', 'levels_of_assurance' => %w(LEVEL_1 LEVEL_2) }
     end
 
+    it 'reports sign-in outcome to piwik' do
+      set_session_and_cookies_with_loa('LEVEL_2')
+      id_corp_name = "idcorp"
+
+      session[:selected_idp_name] = id_corp_name
+      session[:user_segments] = ['test-segment']
+      session[:transaction_simple_id] = 'test-rp'
+      session[:attempt_number] = '1'
+      session[:journey_type] = 'sign-in'
+
+      expect(FEDERATION_REPORTER).to receive(:report_user_idp_outcome)
+       .with(current_transaction: a_kind_of(Display::RpDisplayData),
+         request: a_kind_of(ActionDispatch::Request),
+         idp_name: id_corp_name,
+         user_segments: ['test-segment'],
+         transaction_simple_id: 'test-rp',
+         attempt_number: '1',
+         journey_type: 'sign-in',
+         response_status: 'success')
+      subject { get :index, params: { locale: 'en' } }
+    end
+
     it 'renders the confirmation LOA1 template when LEVEL_1 is the requested LOA' do
       set_session_and_cookies_with_loa('LEVEL_1')
       expect(subject).to render_template(:confirmation_LOA1)

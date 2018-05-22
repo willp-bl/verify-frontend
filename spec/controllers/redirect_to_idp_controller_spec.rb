@@ -45,6 +45,48 @@ describe RedirectToIdpController do
       subject
     end
 
+    it 'reports idp registration attempt details to piwik' do
+      bobs_identity_service_idp_name = "Bob’s Identity Service"
+
+      session[:selected_idp] = bobs_identity_service
+      session[:selected_idp_name] = bobs_identity_service_idp_name
+      session[:user_segments] = ['test-segment']
+      session[:transaction_simple_id] = 'test-rp'
+      session[:journey_type] = 'registration'
+
+
+      expect(FEDERATION_REPORTER).to receive(:report_user_idp_attempt)
+                                         .with(current_transaction: a_kind_of(Display::RpDisplayData),
+                                               request: a_kind_of(ActionDispatch::Request),
+                                               idp_name: bobs_identity_service_idp_name,
+                                               user_segments: ['test-segment'],
+                                               transaction_simple_id: 'test-rp',
+                                               attempt_number: '1',
+                                               journey_type: 'registration')
+      subject
+    end
+
+    it 'reports idp sign-in attempt details to piwik' do
+      bobs_identity_service_idp_name = "Bob’s Identity Service"
+
+      session[:selected_idp] = bobs_identity_service
+      session[:selected_idp_name] = bobs_identity_service_idp_name
+      session[:user_segments] = ['test-segment']
+      session[:transaction_simple_id] = 'test-rp'
+      session[:journey_type] = 'sign-in'
+
+
+      expect(FEDERATION_REPORTER).to receive(:report_user_idp_attempt)
+                                         .with(current_transaction: a_kind_of(Display::RpDisplayData),
+                                               request: a_kind_of(ActionDispatch::Request),
+                                               idp_name: bobs_identity_service_idp_name,
+                                               user_segments: ['test-segment'],
+                                               transaction_simple_id: 'test-rp',
+                                               attempt_number: '1',
+                                               journey_type: 'sign-in')
+      subject
+    end
+
     it "reports idp registration and doesn't error out if idp_was_recommended key not present" do
       bobs_identity_service_idp_name = "Bob’s Identity Service"
       idp_was_recommended = '(idp recommendation key not set)'

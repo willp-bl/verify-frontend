@@ -32,6 +32,79 @@ module Analytics
       end
     end
 
+    describe '#report_user_idp_attempt' do
+      idp_name = 'IDCorp'
+      attempt_number = '1'
+      transaction_simple_id = 'test-rp'
+      user_segments = '2doc_nidl_pp_mobile_app'
+      response_status = 'success'
+
+      it 'should report outcome of idp correctly if success' do
+        expect(analytics_reporter).to receive(:report_action)
+          .with(
+            request,
+            "OUTCOME_#{attempt_number}: sign-in | #{transaction_simple_id} | #{idp_name} | #{user_segments} | #{response_status}",
+            1 => %w(RP description),
+            2 => %w(LOA_REQUESTED LEVEL_2)
+          )
+        federation_reporter.report_user_idp_outcome(
+          current_transaction: current_transaction,
+          request: request,
+          idp_name: idp_name,
+          user_segments: '2doc_nidl_pp_mobile_app',
+          transaction_simple_id: 'test-rp',
+          attempt_number: '1',
+          journey_type: 'sign-in',
+          response_status: 'success'
+        )
+      end
+    end
+
+    describe '#report_user_idp_attempt' do
+      idp_name = 'IDCorp'
+      attempt_number = '1'
+      transaction_simple_id = 'test-rp'
+      user_segments = %w(segment1)
+
+      it 'should report correctly if first sign-in' do
+        expect(analytics_reporter).to receive(:report_action)
+          .with(
+            request,
+            "ATTEMPT_#{attempt_number}: sign-in | #{transaction_simple_id} | #{idp_name} | #{user_segments}",
+            1 => %w(RP description),
+            2 => %w(LOA_REQUESTED LEVEL_2)
+          )
+        federation_reporter.report_user_idp_attempt(
+          current_transaction: current_transaction,
+          request: request,
+          idp_name: idp_name,
+          user_segments: %w(segment1),
+          transaction_simple_id: 'test-rp',
+          attempt_number: '1',
+          journey_type: 'sign-in'
+        )
+      end
+
+      it 'should report correctly if first registration' do
+        expect(analytics_reporter).to receive(:report_action)
+          .with(
+            request,
+            "ATTEMPT_#{attempt_number}: registration | #{transaction_simple_id} | #{idp_name} | #{user_segments}",
+            1 => %w(RP description),
+            2 => %w(LOA_REQUESTED LEVEL_2)
+          )
+        federation_reporter.report_user_idp_attempt(
+          current_transaction: current_transaction,
+          request: request,
+          idp_name: idp_name,
+          user_segments: %w(segment1),
+          transaction_simple_id: 'test-rp',
+          attempt_number: '1',
+          journey_type: 'registration'
+        )
+      end
+    end
+
     describe '#report_idp_registration' do
       idp_name = 'IDCorp'
       idp_history = ['Previous IdP', 'IDCorp']
@@ -45,7 +118,7 @@ module Analytics
             1 => %w(RP description),
             2 => %w(LOA_REQUESTED LEVEL_2),
             5 => ['IDP_SELECTION', idp_history_str]
-          )
+            )
         federation_reporter.report_idp_registration(
           current_transaction: current_transaction,
           request: request,
