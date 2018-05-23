@@ -532,3 +532,5 @@ cy:
       reason_one: bod y ddolen rydych wedi clicio arni wedi torri
       reason_two: rydych wedi rhoi cyfeiriad gwefan anghywir
     no_selection: Dylech ateb y cwestiynau
+  hint:
+    text: Hello, this Welsh hint text from Verify
