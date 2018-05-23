@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 ruby '2.4.2'
 
 gem 'rails', '5.0.2'
-gem 'rails-i18n', '~> 5.0'
 gem 'route_translator', '~> 5.0'
 
 # Server
@@ -39,6 +38,10 @@ gem 'email_validator'
 gem 'multi_json'
 
 gem 'browser'
+
+gem 'pg', '~> 0.21.0'
+gem 'i18n-active_record', :require => 'i18n/active_record'
+gem 'rails-i18n', '~> 5.1'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

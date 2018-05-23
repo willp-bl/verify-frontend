@@ -3,6 +3,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'fileutils'
+require "active_record/railtie"
 
 Rails.application.load_tasks
 

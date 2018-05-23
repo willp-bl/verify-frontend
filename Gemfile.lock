@@ -126,6 +126,8 @@ GEM
     http_parser.rb (0.6.0)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
+    i18n-active_record (0.2.2)
+      i18n (>= 0.5.0)
     inflection (1.0.0)
     insist (1.0.0)
     io-like (0.3.0)
@@ -168,6 +170,7 @@ GEM
     parallel (1.12.0)
     parser (2.4.0.2)
       ast (~> 2.3)
+    pg (0.21.0)
     phantomjs (2.1.1.0)
     pkgr (1.5.1)
       facter (~> 2.1)
@@ -185,7 +188,7 @@ GEM
       stud
     powerpack (0.1.1)
     public_suffix (2.0.4)
-    puma (3.6.0)
+    puma (3.7.0)
     rack (2.0.3)
     rack-handlers (0.7.3)
       rack
@@ -215,9 +218,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails-i18n (5.0.4)
-      i18n (~> 0.7)
-      railties (~> 5.0)
+    rails-i18n (5.1.1)
+      i18n (>= 0.7, < 2)
+      railties (>= 5.0, < 6)
     railties (5.0.2)
       actionpack (= 5.0.2)
       activesupport (= 5.0.2)
@@ -360,11 +363,13 @@ DEPENDENCIES
   govuk_template
   headless
   http (~> 2.0.0)
+  i18n-active_record
   jasmine
   jasmine-jquery-rails
   jquery-rails
   logstash-logger
   multi_json
+  pg (~> 0.21.0)
   pkgr (~> 1.5.1)
   puma
   rack-handlers
@@ -372,7 +377,7 @@ DEPENDENCIES
   rack_session_access
   rails (= 5.0.2)
   rails-controller-testing
-  rails-i18n (~> 5.0)
+  rails-i18n (~> 5.1)
   request_store (~> 1.3.1)
   route_translator (~> 5.0)
   rspec (~> 3.5.0)
@@ -396,4 +401,4 @@ RUBY VERSION
    ruby 2.4.2p198
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
