@@ -18,6 +18,7 @@ module CycleThree
           length = attribute['length']
           nullable = attribute['nullable']
           simple_id = attribute.fetch('name')
+          puts("Simple ID: #{simple_id}")
           display_data = @cycle_display_data_repo.fetch(simple_id)
           attribute_classes[simple_id] = class_of(simple_id, Regexp.new(pattern), length, nullable, display_data)
         end
