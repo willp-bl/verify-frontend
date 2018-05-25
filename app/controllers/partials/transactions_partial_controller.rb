@@ -20,7 +20,6 @@ module TransactionsPartialController
   end
 
   def current_transaction
-    # RP_DISPLAY_REPOSITORY.keys.to_s
     @current_transaction ||= RP_DISPLAY_REPOSITORY.fetch(current_transaction_simple_id)
   end
 end

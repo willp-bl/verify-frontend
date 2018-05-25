@@ -391,7 +391,7 @@ DEPENDENCIES
   thin
   tzinfo-data
   uglifier (~> 2.7.0)
-  web-console
+  web-console (~> 2.0)
   webmock
   win32-process
   windows-pr

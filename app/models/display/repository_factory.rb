@@ -2,7 +2,6 @@ module Display
   class RepositoryFactory
     def initialize(translator)
       @translator = translator
-      ENV['LOADED_RPS'] = ''
     end
 
     def create_idp_repository(directory)
@@ -31,8 +30,6 @@ module Display
         klass.new(File.basename(file, ".#{filetype}"), @translator)
       end
 
-      # ENV['LOADED_RPS'] = "#{ENV['LOADED_RPS']}, #{rps.to_s}"
-
       if validate && Rails.env.development?
         display_data_collection.each(&:validate_content!)
       end
@@ -41,10 +38,6 @@ module Display
         hash[data.simple_id] = data
         hash
       end
-
-      # ENV['LOADED_RPS'] = "#{display_data_collection.to_s}"
-
-      # display_data_collection
     end
   end
 end

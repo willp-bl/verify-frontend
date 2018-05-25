@@ -7,7 +7,6 @@ class AboutLoa1Controller < ApplicationController
 
   def index
     @tailored_text = current_transaction.tailored_text
-    console
     render 'about/about'
   end
 

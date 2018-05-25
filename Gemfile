@@ -45,7 +45,7 @@ gem 'rails-i18n', '~> 5.1'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console'
+  gem 'web-console', '~> 2.0'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
