@@ -11,7 +11,7 @@ class RpTranslationService
             analytics_description: 'analytics description for test-rp',
             other_ways_text: '<p>If you can’t verify your identity using GOV.UK Verify, you can register for an identity profile <a href="http://www.example.com">here</a>.</p><p>Tell us your:</p><ul><li>name</li><li>age</li></ul><p>Include any other relevant details if you have them.</p>',
             other_ways_description: 'register for an identity profile',
-            tailored_text: '<p>This is tailored text for test-rp</p>',
+            tailored_text: '<p>This is tailored text for test-rp, for locale EN</p>',
             taxon_name: 'Benefits'
         },
         cy: {
@@ -20,7 +20,7 @@ class RpTranslationService
             analytics_description: 'analytics description for test-rp',
             other_ways_text: '<p>If you can’t verify your identity using GOV.UK Verify, you can register for an identity profile <a href="http://www.example.com">here</a>.</p><p>Tell us your:</p><ul><li>name</li><li>age</li></ul><p>Include any other relevant details if you have them.</p>',
             other_ways_description: 'register for an identity profile',
-            tailored_text: '<p>Some other test text for TEST-RP, for locale CY</p>',
+            tailored_text: '<p>Some other text for TEST-RP, for locale CY</p>',
             taxon_name: 'Benefits'
         }
       }
@@ -38,8 +38,37 @@ class RpTranslationService
 
       # This is making the assumption that the returned data will be keyed by locale
       all_translations.map do |locale, translations|
-        I18n.backend.store_translations(locale, translations)
+        I18n.backend.store_translations(locale, {
+          rps: Hash[transaction, translations]
+        })
       end
+
+      # I18n.backend.store_translations(:en, {
+      #     rps: {
+      #       "test-rp" => {
+      #         name: 'register for an identity profile',
+      #         rp_name: 'Test RP',
+      #         analytics_description: 'analytics description for test-rp',
+      #         other_ways_text: '<p>If you can’t verify your identity using GOV.UK Verify, you can register for an identity profile <a href="http://www.example.com">here</a>.</p><p>Tell us your:</p><ul><li>name</li><li>age</li></ul><p>Include any other relevant details if you have them.</p>',
+      #         other_ways_description: 'register for an identity profile',
+      #         tailored_text: '<p>This is tailored text for test-rp</p>',
+      #         taxon_name: 'Benefits'
+      #       }
+      #     }
+      # })
+      # I18n.backend.store_translations(:cy, {
+      #     rps: {
+      #       "test-rp" => {
+      #         name: 'register for an identity profile',
+      #         rp_name: 'Test RP',
+      #         analytics_description: 'analytics description for test-rp',
+      #         other_ways_text: '<p>If you can’t verify your identity using GOV.UK Verify, you can register for an identity profile <a href="http://www.example.com">here</a>.</p><p>Tell us your:</p><ul><li>name</li><li>age</li></ul><p>Include any other relevant details if you have them.</p>',
+      #         other_ways_description: 'register for an identity profile',
+      #         tailored_text: '<p>Some other test text for TEST-RP, for locale CY</p>',
+      #         taxon_name: 'Benefits'
+      #       }
+      #     }
+      # })
     end
 
     RP_DISPLAY_REPOSITORY.merge!({
