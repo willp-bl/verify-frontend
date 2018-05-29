@@ -9,8 +9,8 @@ Rails.application.config.after_initialize do
   repository_factory = Display::RepositoryFactory.new(federation_translator)
   IDP_DISPLAY_REPOSITORY = repository_factory.create_idp_repository(CONFIG.idp_display_locales)
   RP_DISPLAY_REPOSITORY = repository_factory.create_rp_repository(CONFIG.rp_display_locales)
-  i18n_custom_backend = HttpBackend.new(federation_translator)
-  i18n_custom_backend.called_from_i18n
+  i18n_custom_backend = RpTranslationService.new(federation_translator)
+  i18n_custom_backend.update_rp_translations
   COUNTRY_DISPLAY_REPOSITORY = repository_factory.create_country_repository(CONFIG.country_display_locales)
   IDENTITY_PROVIDER_DISPLAY_DECORATOR = Display::IdentityProviderDisplayDecorator.new(
     IDP_DISPLAY_REPOSITORY,
