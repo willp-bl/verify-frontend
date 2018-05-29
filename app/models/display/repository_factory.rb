@@ -13,7 +13,11 @@ module Display
     end
 
     def create_rp_repository(directory)
-      create(directory, Display::RpDisplayData, false, 'rb')
+      {} # Create and return an empty hash
+      # create(directory, Display::RpDisplayData, false, 'rb')
+
+      ### Alternative
+      
     end
 
     def create_cycle_three_repository(directory)
