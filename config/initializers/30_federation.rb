@@ -6,11 +6,11 @@ require 'idp_recommendations/recommendations_engine'
 Rails.application.config.after_initialize do
   # Federation localisation and display
   federation_translator = Display::FederationTranslator.new
-  repository_factory = Display::RepositoryFactory.new(federation_translator)
-  IDP_DISPLAY_REPOSITORY = repository_factory.create_idp_repository(CONFIG.idp_display_locales)
-  RP_DISPLAY_REPOSITORY = repository_factory.create_rp_repository(CONFIG.rp_display_locales)
+
   RP_TRANSLATION_SERVICE = RpTranslationService.new(federation_translator)
-  RP_TRANSLATION_SERVICE.update_rp_translations
+  repository_factory = Display::RepositoryFactory.new(federation_translator, RP_TRANSLATION_SERVICE)
+  IDP_DISPLAY_REPOSITORY = repository_factory.create_idp_repository(CONFIG.idp_display_locales)
+  RP_DISPLAY_REPOSITORY = repository_factory.create_rp_repository
   COUNTRY_DISPLAY_REPOSITORY = repository_factory.create_country_repository(CONFIG.country_display_locales)
   IDENTITY_PROVIDER_DISPLAY_DECORATOR = Display::IdentityProviderDisplayDecorator.new(
     IDP_DISPLAY_REPOSITORY,

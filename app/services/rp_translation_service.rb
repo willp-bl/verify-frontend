@@ -25,6 +25,12 @@ class RpTranslationService
         # }
       }
     }
+
+    update_rp_translations
+  end
+
+  def get_transactions
+    ['test-rp']
   end
 
   def update_rp_translations
@@ -43,17 +49,15 @@ class RpTranslationService
         })
       end
 
-      RP_DISPLAY_REPOSITORY.merge!({
-        transaction => Display::RpDisplayData.new(transaction, @translator)
-      })
+      if defined? RP_DISPLAY_REPOSITORY
+        RP_DISPLAY_REPOSITORY.merge!({
+          transaction => Display::RpDisplayData.new(transaction, @translator)
+        })
+      end
     end
   end
 
   private
-
-  def get_transactions
-    ['test-rp']
-  end
 
   def get_translations(transaction)
     @translations.fetch(transaction)
