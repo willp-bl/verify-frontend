@@ -2,30 +2,6 @@ class RpTranslationService
   def initialize(translator)
     @translator = translator
 
-    # These translations will be stored externally
-    @translations = {
-      "test-rp" => {
-        en: {
-            name: 'register for an identity profile',
-            rp_name: 'Test RP',
-            analytics_description: 'analytics description for test-rp',
-            other_ways_text: '<p>If you can’t verify your identity using GOV.UK Verify, you can register for an identity profile <a href="http://www.example.com">here</a>.</p><p>Tell us your:</p><ul><li>name</li><li>age</li></ul><p>Include any other relevant details if you have them.</p>',
-            other_ways_description: 'register for an identity profile',
-            tailored_text: '<p>This is tailored text for test-rp, for locale EN</p>',
-            taxon_name: 'Benefits'
-        },
-        # cy: {
-        #     name: 'register for an identity profile',
-        #     rp_name: 'Test RP',
-        #     analytics_description: 'analytics description for test-rp',
-        #     other_ways_text: '<p>If you can’t verify your identity using GOV.UK Verify, you can register for an identity profile <a href="http://www.example.com">here</a>.</p><p>Tell us your:</p><ul><li>name</li><li>age</li></ul><p>Include any other relevant details if you have them.</p>',
-        #     other_ways_description: 'register for an identity profile',
-        #     tailored_text: '<p>Some other text for TEST-RP, for locale CY</p>',
-        #     taxon_name: 'Benefits'
-        # }
-      }
-    }
-
     update_rp_translations
   end
 
@@ -40,12 +16,12 @@ class RpTranslationService
     transactions = get_transactions
 
     transactions.each do |transaction|
-      all_translations = get_translations(transaction)
+      translations = get_translations(transaction)
 
       # This is making the assumption that the returned data will be keyed by locale.
-      all_translations.map do |locale, translations|
+      translations.map do |locale, translations_for_locale|
         I18n.backend.store_translations(locale, {
-          rps: Hash[transaction, translations]
+          rps: Hash[transaction, translations_for_locale]
         })
       end
 
@@ -60,8 +36,6 @@ class RpTranslationService
   private
 
   def get_translations(transaction)
-    # @translations.fetch(transaction)
-
-    CONFIG_PROXY.get_transaction_translations(transaction, I18n.locale)
+    CONFIG_PROXY.get_transaction_translations(transaction)
   end
 end

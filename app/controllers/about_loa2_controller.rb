@@ -8,9 +8,6 @@ class AboutLoa2Controller < ApplicationController
   def index
     @tailored_text = current_transaction.tailored_text
 
-    # translations = CONFIG_PROXY.get_transaction_translations(current_transaction_entity_id, I18n.locale)
-    # @tailored_text = translations.tailored_text
-
     render 'about/about'
   end
 
