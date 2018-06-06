@@ -60,6 +60,8 @@ class RpTranslationService
   private
 
   def get_translations(transaction)
-    @translations.fetch(transaction)
+    # @translations.fetch(transaction)
+
+    CONFIG_PROXY.get_transaction_translations(transaction, I18n.locale)
   end
 end
