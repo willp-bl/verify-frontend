@@ -1,0 +1,36 @@
+en:
+  idps:
+    headless-idp:
+      name: "Headless IDP"
+      tagline: "become the headless horse person"
+      about: |
+          <p>become the headless horse person</p>
+      requirements:
+        - a head
+      contact_details: |
+        <p>
+        </p>
+      interstitial_question: |
+        <p>Headless IDP can use existing heads to verify you.</p>
+        <h2 class="heading-medium">Are you a Headless IDP customer?</h2>
+        <p>You will need a head</p>
+      mobile_app_installation:
+        You <b>will</b> have to download an head for Headless IDP
+cy:
+  idps:
+    headless-idp:
+      name: "Headless IDP (Welsh-edition)"
+      tagline: "become the headless horse person, but in Welsh"
+      about: |
+          <p>become the headless horse person, but in Welsh</p>
+      requirements:
+        - a head
+      contact_details: |
+        <p>
+        </p>
+      interstitial_question: |
+        <p>Headless IDP can use existing heads to verify you.</p>
+        <h2 class="heading-medium">Are you a Headless IDP customer?</h2>
+        <p>You will need a head</p>
+      mobile_app_installation:
+        You <b>will</b> have to download an head for Headless IDP
