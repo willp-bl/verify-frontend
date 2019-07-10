@@ -15,4 +15,4 @@ then
 fi
 
 bundle check || bundle install
-bundle exec puma -e development -d -p 50300
+bundle exec puma -e development -d -b tcp://$EXTERNAL_HOST:50300
